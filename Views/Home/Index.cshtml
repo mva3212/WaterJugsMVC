@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron container" ng-app="WaterJugsApp" ng-controller="HomeController">
+    <div class="row">
+        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+        <div class="col-sm-4">
+            <form name="solveForm" ng-submit="solve(solveForm,solveForm.$valid)" novalidate>
+                <div class="form-group">
+                    <label for="inputJugX">Jug X Capacity</label>
+                    <input type="number" class="form-control" ng-model="model.JugXCapacity" name="Jug X Capacity" min="1" max="999999" id="inputjugx" placeholder="Enter Jug X Capacity" ng-required=true>
+                </div>
+                <div class="form-group">
+                    <label for="inputJugY">Jug Y Capacity</label>
+                    <input type="number" class="form-control" ng-model="model.JugYCapacity" name="Jug Y Capacity" min="1" max="999999" id="inputJugY" placeholder="Enter Jug Y Capacity" ng-required=true>
+                </div>
+                <div class="form-group">
+                    <label for="inputGoal">Goal Capacity</label>
+                    <input type="number" class="form-control" ng-model="model.GoalCapacity" name="Goal Capacity" min="1" max="999999" id="inputGoal" placeholder="Enter Goal Capacity" ng-required=true>
+                </div>
+                <button type="submit" class="btn btn-primary">Solve!</button>
+            </form>
+        </div>
+        <div class="col-sm-8">
+            <div ng-show="model.ShortestSolution">
+                <div ng-repeat="step in model.ShortestSolution">
+                    Step {{$index}}: {{step.Jug1State}} - {{step.Jug2State}} - {{step.Message}}
+                </div>
+            </div>
+
+            <div ng-show="!model.ShortestSolution && model.UnsolvableReason">{{model.UnsolvableReason}}</div>
+            
+        </div>
+    </div>
+ </div>
